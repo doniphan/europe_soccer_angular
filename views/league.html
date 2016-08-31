@@ -1,0 +1,104 @@
+
+
+<div class="row">
+	<div class="col-md-2 ">		
+		<div class="league_box_date">
+			<span class="match_day_caption">Match day:</span>
+			<span class="match_day">{{league.league_detail.matchday}}</span>
+		</div>		
+	</div>
+	<div class="col-md-10">
+		<h2 class="section_title ">{{league.league_detail.leagueCaption}} </h2>
+	</div>
+</div>
+<br><br>
+
+<!-- Processing div -->
+
+	<div class="col-lg-12 " ng-show="league.processing == true">
+		<div class='uil-ripple-css processing_div' style='transform:scale(0.6);'><div></div><div></div></div>
+	</div>
+
+<!-- End Processing div -->
+
+<div class="row" ng-if="league.groups">
+	<div class="col-md-6"  ng-repeat="group in league.groups">
+		<div class="box box-success" >
+			<div class="box-content">
+				<div class="box-body">
+					<table class="table table-hover">
+						<thead>
+							<th>Pos.</th>
+							<th>Team</th>
+							<th>Points</th>
+							<th>P</th>
+							<th>GF</th>
+							<th>GA</th>
+							<th>GD</th>
+							<th>Group</th>
+						</thead>
+						<tbody >
+							<tr ng-repeat="team in group">
+								<td>{{team.rank}}</td>
+								<td><a href=""></a><img src="{{team.crestURI}}" alt="{{team.team}}_flag" width="30"> {{team.team}}</td>
+								<td>{{team.points}}</td>
+								<td>{{team.playedGames}}</td>
+								<td>{{team.goals}}</td>
+								<td>{{team.goalsAgainst}}</td>
+								<td>{{team.goalDifference}}</td>
+								<td>{{team.group}}</td>
+							</tr>						
+						</tbody>
+					</table>
+				</div>
+			</div>	
+		</div>
+	</div>
+</div>
+
+<div class="row" ng-if="league.teams">
+	<div class="col-md-12"  >
+		<div class="box box-success" >
+			<div class="box-content">
+				<div class="box-body">
+					<table class="table table-hover">
+						<thead>
+
+						<tr>
+							<th><a ng-click="sortType = 'position'; sortReverse = !sortReverse">Pos.</a></th>
+							<th><a ng-click="sortType = 'teamName'; sortReverse = !sortReverse">Team</a></th>
+							<th><a ng-click="sortType = 'points'; sortReverse = !sortReverse">Points</a></th>
+							<th><a ng-click="sortType = 'playedGames'; sortReverse = !sortReverse">P</a></th>
+							<th><a ng-click="sortType = 'wins'; sortReverse = !sortReverse">W</a></th>
+							<th><a ng-click="sortType = 'losses'; sortReverse = !sortReverse">L</a></th>
+							<th><a ng-click="sortType = 'draws'; sortReverse = !sortReverse">D</a></th>
+							<th><a ng-click="sortType = 'goals'; sortReverse = !sortReverse">GF</a></th>
+							<th><a ng-click="sortType = 'goalsAgainst'; sortReverse = !sortReverse">GA</a></th>
+							<th><a ng-click="sortType = 'goalDifference'; sortReverse = !sortReverse">GD</a></th>
+						</tr>
+						</thead>
+						<tbody >
+							
+							<tr ng-repeat="team in league.teams | filter : search | orderBy:sortType:sortReverse">
+								<td>{{team.position}}</td>
+								<td>
+									<a href="javascript:void(0)" ng-click="league.open(team)"><img src="{{team.crestURI}}" alt="{{team.teamName}}_flag" width="30"> {{team.teamName}}</a>
+								</td>
+								<td>{{team.points}}</td>
+								<td>{{team.playedGames}}</td>
+								<td>{{team.wins}}</td>
+								<td>{{team.losses}}</td>
+								<td>{{team.draws}}</td>
+								<td>{{team.goals}}</td>
+								<td>{{team.goalsAgainst}}</td>
+								<td>{{team.goalDifference}}</td>
+							</tr>						
+						</tbody>
+					</table>
+				</div>
+			</div>	
+		</div>
+	</div>
+	 
+</div>
+
