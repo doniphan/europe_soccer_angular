@@ -13,21 +13,16 @@ angular.module ("appRoutes", ['ngRoute'])
 		controller: 'leagueCtrl',
 		controllerAs: 'league'
 	})
-	.when("/characters", {
-		templateUrl: 'views/characters.html',	
-		controller: 'sectionCtrl',
-		controllerAs: 'section'
+	.when("/team/fixtures/:id", {
+		templateUrl: 'views/fixtures.html',	
+		controller: 'fixturesCtrl',
+		controllerAs: 'matches'
 	})
-	.when("/character/:id", {
-		templateUrl: 'views/character_one.html',
-		controller: 'characterCtrl',
-		controllerAs: 'characterOne'
+	.when("/favorites", {
+		templateUrl: 'views/favorites.html',	
+		controller: 'favoritesCtrl',
+		controllerAs: 'favs'
 	})
-	// .when("/dashboard", {
-	// 	templateUrl: 'views/dashboard.html',
-	// 	controller: 'leaguesDashboardCtrl',
-	// 	controllerAs: 'dashboard'
-	// })
 	.otherwise({
         redirectTo: '/'
     });

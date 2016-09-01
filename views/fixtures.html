@@ -1,0 +1,71 @@
+
+
+<div class="row">
+	
+	<div class="col-md-8">
+		<h2 class="section_title ">{{matches.team_name}}</h2>
+	</div>
+
+<!-- Search and tools div  -->
+<div class="col-md-2">
+		<div class="input-group">
+			<input type="text" name="q" ng-model="search" class="form-control" placeholder="Search...">
+			<span class="input-group-btn">
+				<button type="submit" name="search" id="search-btn" class="btn btn-flat" ng-click="clear_search()">
+					<i class="fa fa-times"></i>
+				</button>
+			</span>
+		</div>
+	</div>
+	<div class="col-md-2">
+		<button class="btn btn-default pull-right" ng-click="sortType = 'date'; sortReverse = !sortReverse">Order by date 
+			<i class="fa fa-sort-amount-desc" aria-hidden="true" ng-show="sortReverse"></i>
+			<i class="fa fa-sort-amount-asc" aria-hidden="true" ng-show="!sortReverse"></i>
+		</button>
+	</div>
+	
+<!-- End Search and tools div  -->	
+
+</div>
+<br><br>
+
+<!-- Processing div -->
+
+	<div class="col-lg-12 " ng-show="matches.processing == true">
+		<div class='uil-ripple-css processing_div' style='transform:scale(0.6);'><div></div><div></div></div>
+	</div>
+
+<!-- End Processing div -->
+
+
+<div class="row" >
+	<div class="col-md-3 col-sm-4" ng-repeat="match in matches.fixtures | filter : search | orderBy:sortType:sortReverse" >
+		<div class="match_box box-success" >
+			<div class="box-content">
+				<div class="box-body">
+				<div class="match_header">
+					<span class="match_date">{{match.date | date:"MMM d"}}</span><span> {{match.date | date:"yyyy"}}</span><br>
+					<span class="match_time">{{match.date | date:"h:mma"}}</span>
+				</div>
+				<div class="match_body">
+					<div class="match_left">
+					<span>Home</span><br>
+					<span class="team_goals" ng-class="match.homeTeamName === matches.team_name ? 'home_team' : 'away_team'">{{match.result.goalsHomeTeam}}</span><br>
+						<span ng-class="match.homeTeamName === matches.team_name ? 'home_team' : 'away_team'">{{match.homeTeamName}}</span>
+					</div>
+					<div class="match_right">
+					<span>Away</span><br>
+					<span class="team_goals" ng-class="match.awayTeamName === matches.team_name ? 'home_team' : 'away_team'">{{match.result.goalsAwayTeam}}</span><br>
+						<span ng-class="match.awayTeamName === matches.team_name ? 'home_team' : 'away_team'">{{match.awayTeamName}}</span>
+					</div>	
+				</div>
+				<div class="match_footer">
+					<span ng-class="match.status === 'FINISHED' ? 'match_status_finished' : 'match_status_timed'">{{match.status}}</span>
+				</div>
+				</div>
+			</div>	
+		</div>
+	</div>
+	 
+</div>
+

@@ -64,15 +64,26 @@ angular.module ("factories", [])
 .factory ('LeagueDetail', function ($http, Authorization) {
  	var dashboardFactory = {};
 
+//Gets detail of the league
  	dashboardFactory.league_detail = function (id) {
  		return Authorization.consult('GET', 'http://api.football-data.org/v1/competitions/' + id + '/leagueTable', '' )
-
- 		// return $http.get('http://api.football-data.org/v1/competitions/398/leagueTable');
  	}; 	
 
+// Gets players for a certain team
  	dashboardFactory.team_players = function (team_link) {
- 		return Authorization.consult('GET', team_link +'/players', '' )
- 		
+ 		return Authorization.consult('GET', team_link +'/players', '' ) 		
+ 	};
+
+// Gets fixtures for a certain team
+ 	dashboardFactory.team_fixtures = function (team_id) {
+ 		return Authorization.consult('GET', 'http://api.football-data.org/v1/teams/' + team_id +'/fixtures', '' )
+
+ 	}
+
+//Gets team details
+ 	dashboardFactory.team = function (team_id) {
+ 		return Authorization.consult('GET', 'http://api.football-data.org/v1/teams/' + team_id , '' )
+
  	}
 
  	return dashboardFactory;
@@ -94,11 +105,17 @@ angular.module ("factories", [])
 
 		    return deferred.promise;
         },
+		getFavs: function () {
+			var values = [],
+		         keys = Object.keys(localStorage),
+		         i = keys.length;
 
-        calculateAge: function(birthday) { // birthday is a date
-		    var ageDifMs = Date.now() - birthday.getTime();
-		    var ageDate = new Date(ageDifMs); // miliseconds from epoch
-		    return Math.abs(ageDate.getUTCFullYear() - 1970);
+		    while ( i-- ) {
+		    	var team_object = angular.fromJson(localStorage.getItem(keys[i]))
+
+		        values.push(team_object);
+		    }
+		    return values;
 		}
     };
 });

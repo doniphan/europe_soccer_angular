@@ -1,8 +1,10 @@
 <div class="modal-header" >
         <img src="{{team.crestURI}}" alt="{{team.teamName}}_flag" width="100">
         <span class="modal-title" id="modal-title">{{team.teamName}}</span>
+        <button class="btn btn-success pull-right" id="fav_btn" type="button" ng-click="fav(team)" ng-show="!favorited">Favorite</button>
+        <button class="btn btn-default pull-right" id="unfav_btn" type="button" ng-click="unfav(team)" ng-show="favorited">UnFavorite</button>
     </div>
-    
+    <pre>{{values | json}}</pre>
     <div class="modal-body" id="modal-body">
     	<div class="row">
     		<div class="col-md-1 col-md-offset-3">
@@ -120,6 +122,8 @@
 	    		</div>
     		</div>
 <br><br>
+<div class="row" ng-show="players">
+<h3 class="sub-title">Players</h3>
 <table class="table table-hover">
 			<thead>			
 			<tr>
@@ -135,9 +139,8 @@
 			</thead>
 			<tbody >
 				<tr ng-repeat="player in players | filter : search | orderBy:sortType:sortReverse">
-					<td>{{player.name}}</td>
-					<td>{{player.position}}</td>
-					
+					<td><span class="accent">{{player.name}}</span></td>
+					<td>{{player.position}}</td>					
 					<td>{{player.player_age}}</td>
 					<td>{{player.nationality}}</td>
 					<td>{{player.jerseyNumber}}</td>
@@ -146,10 +149,9 @@
 				</tr>						
 			</tbody>
 		</table>
+		</div>
     </div>
-    <pre>{{players | json}}</pre>
     <div class="modal-footer">
     
-        <button class="btn btn-primary" type="button" ng-click="league.ok()">Closed</button>
-        <button class="btn btn-warning" type="button" ng-click="league.fav()">Favorite</button>
+        <button class="btn btn-primary" type="button" ng-click="close()">Close</button>
     </div>
