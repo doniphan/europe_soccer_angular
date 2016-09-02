@@ -41,7 +41,8 @@
     background-color: #ffffff;
     color:#484848;
 	padding-bottom: 10px;
-	transition: all 0.3s;    
+	transition: all 0.3s;   
+	min-height: 140px; 
 }
 .league_box:hover{	
     color:white;
@@ -66,6 +67,7 @@
     font-weight: bold;
     padding-top: 10px;
     color: white;
+    font-size: 1.2rem;
 }
 .match_day{
 	display: block;
@@ -251,7 +253,7 @@
 
 @media 
 only screen and (max-width: 760px),
-(min-device-width: 768px) and (max-device-width: 1024px)  {
+(min-device-width: 768px) and (max-device-width: 900px)  {
 
 	/* Force table to not be like tables anymore */
 	.tabla-responsiva, .tabla-responsiva thead, .tabla-responsiva tbody, .tabla-responsiva th, .tabla-responsiva td, .tabla-responsiva tr { 
