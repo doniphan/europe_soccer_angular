@@ -21,7 +21,7 @@
 		<div class="box box-success" >
 			<div class="box-content">
 				<div class="box-body">
-					<table class="table table-hover">
+					<table class="table table-hover tabla-responsiva">
 						<thead>
 							<th>Pos.</th>
 							<th>Team</th>
@@ -36,12 +36,12 @@
 							<tr ng-repeat="team in group">
 								<td>{{team.rank}}</td>
 								<td><a href=""></a><img src="{{team.crestURI}}" alt="{{team.team}}_flag" width="30"> {{team.teamName}}</td>
-								<td>{{team.points}}</td>
-								<td>{{team.playedGames}}</td>
-								<td>{{team.goals}}</td>
-								<td>{{team.goalsAgainst}}</td>
-								<td>{{team.goalDifference}}</td>
-								<td>{{team.group}}</td>
+								<td data-label="Points">{{team.points}}</td>
+								<td data-label="Games">{{team.playedGames}}</td>
+								<td data-label="Goals">{{team.goals}}</td>
+								<td data-label="Goals against">{{team.goalsAgainst}}</td>
+								<td data-label="Goal Diff.">{{team.goalDifference}}</td>
+								<td data-label="Group">{{team.group}}</td>
 
 							</tr>						
 						</tbody>
@@ -57,7 +57,7 @@
 		<div class="box box-success" >
 			<div class="box-content">
 				<div class="box-body">
-					<table class="table table-hover">
+					<table class="table table-hover tabla-responsiva">
 						<thead>
 
 						<tr>
@@ -76,18 +76,19 @@
 						<tbody >
 							
 							<tr ng-repeat="team in favs.fav_teams | filter : search | orderBy:sortType:sortReverse">
-								<td>{{team.position}}</td>
+								<td data-label="Position in league">{{team.position || team.rank}}</td>
 								<td>
-									<a href="javascript:void(0)" ng-click="league.open(team)"><img src="{{team.crestURI}}" alt="{{team.teamName}}_flag" width="30"> {{team.teamName}}</a>
+									<a href="javascript:void(0)" ng-click="favs.open(team)"><img src="{{team.crestURI}}" alt="{{team.teamName}}_flag" width="30"> {{team.teamName || team.team}}</a>
+									<a href="#/league/{{team.league_id}}" class="btn btn-warning pull-right">League</a>
 								</td>
-								<td>{{team.points}}</td>
-								<td>{{team.playedGames}}</td>
-								<td>{{team.wins}}</td>
-								<td>{{team.losses}}</td>
-								<td>{{team.draws}}</td>
-								<td>{{team.goals}}</td>
-								<td>{{team.goalsAgainst}}</td>
-								<td>{{team.goalDifference}}</td>
+								<td data-label="Points">{{team.points}}</td>
+								<td data-label="Games">{{team.playedGames}}</td>
+								<td data-label="Wins">{{team.wins}}</td>
+								<td data-label="Losses">{{team.losses}}</td>
+								<td data-label="Draws">{{team.draws}}</td>
+								<td data-label="Goals">{{team.goals}}</td>
+								<td data-label="Goals against">{{team.goalsAgainst}}</td>
+								<td data-label="Goal Diff.">{{team.goalDifference}}</td>
 								<td><a class="btn btn-success" href="./#/team/fixtures/{{team.team_id}}">Matches</a</td>
 								<td><button class="btn btn-danger" ng-click="unfav(team)"><i class="fa fa-trash" aria-hidden="true"></i></button></td>
 							</tr>						

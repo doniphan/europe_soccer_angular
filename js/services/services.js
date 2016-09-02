@@ -30,11 +30,9 @@ angular.module ("factories", [])
                     // algo salio mal
                     
 
-                    console.error(response);
-                    
-                    alert(' Error al hacer la consulta.');
+                    console.error(' Error al hacer la consulta: ', response);
 
-                    return $q.reject(response.data);
+                    return $q.reject(response);
                 });
 
             },
@@ -64,10 +62,15 @@ angular.module ("factories", [])
 .factory ('LeagueDetail', function ($http, Authorization) {
  	var dashboardFactory = {};
 
+//Gets list of leagues
+ 	dashboardFactory.leagues = function (id) {
+ 		return Authorization.consult('GET', 'http://api.football-data.org/v1/competitions/' + id, '' )
+ 	}; 
+
 //Gets detail of the league
  	dashboardFactory.league_detail = function (id) {
  		return Authorization.consult('GET', 'http://api.football-data.org/v1/competitions/' + id + '/leagueTable', '' )
- 	}; 	
+ 	}; 	 		
 
 // Gets players for a certain team
  	dashboardFactory.team_players = function (team_link) {
@@ -85,6 +88,10 @@ angular.module ("factories", [])
  		return Authorization.consult('GET', 'http://api.football-data.org/v1/teams/' + team_id , '' )
 
  	}
+
+ 	dashboardFactory.league_teams = function (league_teams_link) {
+ 		return Authorization.consult('GET', league_teams_link , '' )
+ 	}; 	
 
  	return dashboardFactory;
  })
@@ -117,5 +124,21 @@ angular.module ("factories", [])
 		    }
 		    return values;
 		}
+    };
+})
+
+.directive('checkImage', function($http) {
+    return {
+        restrict: 'A',
+        link: function(scope, element, attrs) {
+            attrs.$observe('ngSrc', function(ngSrc) {
+                $http.get(ngSrc).success(function(){
+                    console.log('image exist');
+                }).error(function(){
+                    console.log('image not exist');
+                    element.attr('src', 'img/genericBadge.png'); // set default image
+                });
+            });
+        }
     };
 });

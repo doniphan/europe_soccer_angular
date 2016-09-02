@@ -2,7 +2,20 @@
 	color: #fff;
 	display: inline;
 }
-
+.navbar-title{
+	color: #b3cc92;
+	font-size: 2rem;
+}
+.jumbotron {
+    padding-bottom: 0px;
+    padding-top: 0px;
+}
+@media screen and (min-width: 768px){
+.jumbotron {
+	padding-top: 0px;
+    padding-bottom: 0px;
+    }
+}
 
 /* League details */
 .intro-text{
@@ -89,6 +102,11 @@
 }
 .sub-tittle{
 	font-size: 1.2rem
+}
+.sub-tittle2{
+	font-size: 1.2rem;
+	cursor: #eee;
+	padding-top: 100px;
 }
 .cell-default{
 	background-color: #00667f;
@@ -229,4 +247,60 @@
 	color:red;
 }
 
-/* Matches*/
+/* End Matches*/
+
+@media 
+only screen and (max-width: 760px),
+(min-device-width: 768px) and (max-device-width: 1024px)  {
+
+	/* Force table to not be like tables anymore */
+	.tabla-responsiva, .tabla-responsiva thead, .tabla-responsiva tbody, .tabla-responsiva th, .tabla-responsiva td, .tabla-responsiva tr { 
+		display: block; 
+	}
+	
+	/* Hide table headers (but not display: none;, for accessibility) */
+	.tabla-responsiva thead tr { 
+		position: absolute;
+		top: -9999px;
+		left: -9999px;
+	}
+	
+	.tabla-responsiva tr { border: 1px solid #a2d8fb; }
+	
+	.tabla-responsiva td { 
+		/* Behave  like a "row" */
+		border: none;
+		border-bottom: 1px solid #eee; 
+		position: relative;
+		padding-left: 50%; 
+		
+	}
+		.tabla-responsiva tbody > tr > td:nth-child(1) {
+		    font-size: 150%;
+		} 
+	
+		
+	.tabla-responsiva td:before { 
+		font-weight: bold;
+		/* Top/left values mimic padding */
+		top: 6px;
+		left: 6px;
+		width: 45%; 
+		padding-right: 10px; 
+		white-space: nowrap;
+	    margin-bottom: 0.5rem;
+	   
+	}
+	/*
+	Label the data
+	*/
+	.tabla-responsiva td:before { 
+	    content: attr(data-label); 
+	}
+	
+	.form-control{
+    padding:3px;
+    }
+	
+}
+

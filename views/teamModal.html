@@ -1,14 +1,13 @@
 <div class="modal-header" >
         <img src="{{team.crestURI}}" alt="{{team.teamName}}_flag" width="100">
-        <span class="modal-title" id="modal-title">{{team.teamName}}</span>
+        <span class="modal-title" id="modal-title">{{team.teamName || team.team}}</span>
         <button class="btn btn-success pull-right" id="fav_btn" type="button" ng-click="fav(team)" ng-show="!favorited">Favorite</button>
         <button class="btn btn-default pull-right" id="unfav_btn" type="button" ng-click="unfav(team)" ng-show="favorited">UnFavorite</button>
     </div>
-    <pre>{{values | json}}</pre>
     <div class="modal-body" id="modal-body">
     	<div class="row">
-    		<div class="col-md-1 col-md-offset-3">
-    			<div class="cell-default">
+    		<div class="col-md-1 col-md-offset-3" ng-show="{{team.position}}">
+    			<div class="cell-default" >
     				<div class="cell-head">
     					<span class="cell-title">Position</span>
     				</div>
@@ -17,7 +16,7 @@
     				</div>
     			</div>
     		</div>
-    		<div class="col-md-1">
+    		<div class="col-md-1" ng-show="{{team.wins}}">
     			<div class="cell-default">
     				<div class="cell-head">
     					<span class="cell-title">Wins</span>
@@ -27,7 +26,7 @@
     				</div>
     			</div>
     		</div>
-    		<div class="col-md-1">
+    		<div class="col-md-1" ng-show="{{team.losses}}">
     			<div class="cell-default">
     				<div class="cell-head">
     					<span class="cell-title">Losses</span>
@@ -37,7 +36,7 @@
     				</div>
     			</div>
     		</div>
-    		<div class="col-md-1">
+    		<div class="col-md-1" ng-show="{{team.draws}}">
     			<div class="cell-default">
     				<div class="cell-head">
     					<span class="cell-title">Draws</span>
@@ -47,7 +46,7 @@
     				</div>
     			</div>
     		</div>
-    		<div class="col-md-2">
+    		<div class="col-md-2" ng-show="{{team.goalDifference}}">
     			<div class="cell-warning">
     				<div class="cell-head">
     					<span class="cell-title">Goal Difference: {{team.goalDifference}}</span>
@@ -72,7 +71,7 @@
 				</div>
 
 			<!-- End Processing div -->
-	    		<div class="col-md-4 col-md-offset-2">
+	    		<div class="col-md-4 col-md-offset-2" ng-show="{{team.home}}">
 	    			<div class="cell-success">
 	    				<div class="cell-head">
 	    					<span class="cell-title">Home</span>
@@ -96,7 +95,7 @@
 	    				</div>
 	    			</div>
 	    		</div>
-	    		<div class="col-md-4 ">
+	    		<div class="col-md-4 " ng-show="{{team.away}}">
 	    			<div class="cell-danger">
 	    				<div class="cell-head">
 	    					<span class="cell-title">Away</span>
@@ -122,9 +121,12 @@
 	    		</div>
     		</div>
 <br><br>
+<div class="row" ng-show="!players">
+	<h3 class="sub-title">There are no Players at this time in the database</h3>
+</div>
 <div class="row" ng-show="players">
 <h3 class="sub-title">Players</h3>
-<table class="table table-hover">
+<table class="table table-hover tabla-responsiva">
 			<thead>			
 			<tr>
 				<th><a ng-click="sortType = 'name'; sortReverse = !sortReverse">Name</a></th>
@@ -140,12 +142,12 @@
 			<tbody >
 				<tr ng-repeat="player in players | filter : search | orderBy:sortType:sortReverse">
 					<td><span class="accent">{{player.name}}</span></td>
-					<td>{{player.position}}</td>					
-					<td>{{player.player_age}}</td>
-					<td>{{player.nationality}}</td>
-					<td>{{player.jerseyNumber}}</td>
-					<td>{{player.contractUntil}}</td>
-					<td>{{player.marketValue}}</td>
+					<td data-label="Position">{{player.position}}</td>					
+					<td data-label="Age">{{player.player_age}}</td>
+					<td data-label="Nationality">{{player.nationality}}</td>
+					<td data-label="Jersey #">{{player.jerseyNumber}}</td>
+					<td data-label="Contract until">{{player.contractUntil}}</td>
+					<td data-label="Market Value">{{player.marketValue}}</td>
 				</tr>						
 			</tbody>
 		</table>
