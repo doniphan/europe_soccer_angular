@@ -1,6 +1,6 @@
 angular.module ("factories", [])
 
-
+// Authorization service.
 .factory('Authorization', ['$rootScope', '$http', '$interval', '$location', '$q', '$timeout', function($rootScope, $http, $interval, $location, $q, $timeout) {
         return {
             consult: function(method, api_url, datos) {
@@ -46,7 +46,7 @@ angular.module ("factories", [])
 ])
 
 
-
+// Dashboard page services
 .factory ('Dashboard', function ($http, Authorization) {
  	var dashboardFactory = {};
 
@@ -59,31 +59,33 @@ angular.module ("factories", [])
  	return dashboardFactory;
  })
 
+
+//League tables service
 .factory ('LeagueDetail', function ($http, Authorization) {
  	var dashboardFactory = {};
 
-//Gets list of leagues
+	//Gets list of leagues
  	dashboardFactory.leagues = function (id) {
  		return Authorization.consult('GET', 'http://api.football-data.org/v1/competitions/' + id, '' )
  	}; 
 
-//Gets detail of the league
+	//Gets detail of the league
  	dashboardFactory.league_detail = function (id) {
  		return Authorization.consult('GET', 'http://api.football-data.org/v1/competitions/' + id + '/leagueTable', '' )
  	}; 	 		
 
-// Gets players for a certain team
+	// Gets players for a certain team
  	dashboardFactory.team_players = function (team_link) {
  		return Authorization.consult('GET', team_link +'/players', '' ) 		
  	};
 
-// Gets fixtures for a certain team
+	// Gets fixtures for a certain team
  	dashboardFactory.team_fixtures = function (team_id) {
  		return Authorization.consult('GET', 'http://api.football-data.org/v1/teams/' + team_id +'/fixtures', '' )
 
  	}
 
-//Gets team details
+	//Gets team details
  	dashboardFactory.team = function (team_id) {
  		return Authorization.consult('GET', 'http://api.football-data.org/v1/teams/' + team_id , '' )
 
@@ -96,22 +98,11 @@ angular.module ("factories", [])
  	return dashboardFactory;
  })
 
+
+// Utils services
 .factory('Checks', function($q) {
     return {
-        isImage: function(src) {
-            var deferred = $q.defer();
-
-		    var image = new Image();
-		    image.onerror = function() {
-		        deferred.resolve(false);
-		    };
-		    image.onload = function() {
-		        deferred.resolve(true);
-		    };
-		    image.src = src;
-
-		    return deferred.promise;
-        },
+        
 		getFavs: function () {
 			var values = [],
 		         keys = Object.keys(localStorage),
@@ -127,6 +118,7 @@ angular.module ("factories", [])
     };
 })
 
+//Directive to check if team has badge. If don't, assigns a default one.
 .directive('checkImage', function($http) {
     return {
         restrict: 'A',

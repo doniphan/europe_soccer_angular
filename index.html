@@ -4,30 +4,39 @@
 	<meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Doniphan Dummie App</title>
+	<title>European Soccer Leagues database</title>
+
+    <!-- basic styles -->
 	<link rel="stylesheet" href="css/bootstrap.min.css">
 	<link rel="stylesheet" href="css/custom.css">
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- Theme CSS -->
+    <link rel="stylesheet" href="css/main_style.css" >
+    <link rel="stylesheet" href="css/skin-purple.min.css">
+
+    <!-- For loading animation -->
 	<link rel="stylesheet" href="css/ripple.css">
-	    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- Fonts styles -->
+	<link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
     <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
-        <!-- Theme CSS -->
-    <link href="css/agency.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
-     <link rel="stylesheet" href="css/skin-purple.min.css">
+        
+    <!-- For modals -->     
      <link rel="stylesheet" href="css/ngDialog.min.css">
      <link rel="stylesheet" href="css/ngDialog-theme-default.min.css">
 
 </head>
+
 <body id="page-top" class="index" ng-app="doniphan_demo">
+
 	<!-- Navigation -->
     <nav id="mainNav" class="navbar navbar-default navbar-custom navbar-fixed-top">
         <div class="container">
-        <span class="navbar-title">European Football Leagues Database</span>
-            <!-- Brand and toggle get grouped for better mobile display -->
-            
+            <span class="navbar-title">European Football Leagues Database</span>            
 
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class=" navbar-collapse" id="menu">
@@ -48,35 +57,36 @@
                         <!-- <a class="page-scroll" href="#/contact">Contact</a> -->
                     </li>
                 </ul>
-            </div>
-            <!-- /.navbar-collapse -->
-        </div>
-        <!-- /.container-fluid -->
+            </div>           
+        </div>        
     </nav>
 
     <!-- Header -->
     <header>
         <div class="jumbotron">       
             <img src="img/bg.jpg" class="img-responsive" alt="">
-        </div>
-       
+        </div>       
     </header>
 
-    <!-- Services Section -->
+    <!-- ngView Section -->
     <section >
-
 	<div class="container" ng-view></div>
-
 	</section>
+
+<!-- Scripts -->
+    <!-- Angular -->
 	<script type="text/javascript" src="js/libs/angular.min.js"></script>
 	<script type="text/javascript" src="js/libs/angular-route.min.js"></script>
 	<script type="text/javascript" src="js/libs/angular-animate.min.js"></script>
     <script type="text/javascript" src="js/libs/angular-sanitize.min.js"></script>
-    <script type="text/javascript" src="js/libs/ngDialog.min.js"></script>
     <script type="text/javascript" src="js/controllers/controllers.js"></script>
     <script type="text/javascript" src="js/services/services.js"></script>
     <script type="text/javascript" src="js/routes.js"></script>
-	<script type="text/javascript" src="js/app.js"></script>  
-    <script type="text/javascript" src="js/checkImage.js"></script> 
+    <script type="text/javascript" src="js/app.js"></script>  
+
+    <!-- For modals -->
+    <script type="text/javascript" src="js/libs/ngDialog.min.js"></script>
+    
+    
 </body>
 </html>

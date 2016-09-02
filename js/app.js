@@ -1,3 +1,5 @@
+//Main module
+
 angular.module ("doniphan_demo", [
 	'ngRoute',
 	'ngAnimate',

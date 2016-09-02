@@ -1,9 +1,17 @@
-
-
+<!-- Title and search bar -->
 <div class="row">
 	
-	<div class="col-md-10">
+	<div class="col-md-8">
 		<h2 class="section_title ">Favorites</h2>
+	</div>
+		<div class="col-md-4 ">
+		<div class="input-group">
+			<input type="text" name="q" ng-model="search" class="form-control" placeholder="Search...">
+			<span class="input-group-btn">
+				<button type="submit" name="search" id="search-btn" class="btn btn-flat" ng-click="clear_search()"><i class="fa fa-times"></i>
+				</button>
+			</span>
+		</div>
 	</div>
 </div>
 <br><br>
@@ -16,42 +24,7 @@
 
 <!-- End Processing div -->
 
-<div class="row" ng-if="league.groups">
-	<div class="col-md-6"  ng-repeat="team in fav_teams">
-		<div class="box box-success" >
-			<div class="box-content">
-				<div class="box-body">
-					<table class="table table-hover tabla-responsiva">
-						<thead>
-							<th>Pos.</th>
-							<th>Team</th>
-							<th>Points</th>
-							<th>P</th>
-							<th>GF</th>
-							<th>GA</th>
-							<th>GD</th>
-							<th>Group</th>
-						</thead>
-						<tbody >
-							<tr ng-repeat="team in group">
-								<td>{{team.rank}}</td>
-								<td><a href=""></a><img src="{{team.crestURI}}" alt="{{team.team}}_flag" width="30"> {{team.teamName}}</td>
-								<td data-label="Points">{{team.points}}</td>
-								<td data-label="Games">{{team.playedGames}}</td>
-								<td data-label="Goals">{{team.goals}}</td>
-								<td data-label="Goals against">{{team.goalsAgainst}}</td>
-								<td data-label="Goal Diff.">{{team.goalDifference}}</td>
-								<td data-label="Group">{{team.group}}</td>
-
-							</tr>						
-						</tbody>
-					</table>
-				</div>
-			</div>	
-		</div>
-	</div>
-</div>
-
+<!-- Table with list of favorited teams -->
 <div class="row" >
 	<div class="col-md-12"  >
 		<div class="box box-success" >
@@ -59,7 +32,6 @@
 				<div class="box-body">
 					<table class="table table-hover tabla-responsiva">
 						<thead>
-
 						<tr>
 							<th><a ng-click="sortType = 'position'; sortReverse = !sortReverse">Pos.</a></th>
 							<th><a ng-click="sortType = 'teamName'; sortReverse = !sortReverse">Team</a></th>
@@ -73,9 +45,8 @@
 							<th><a ng-click="sortType = 'goalDifference'; sortReverse = !sortReverse">GD</a></th>
 						</tr>
 						</thead>
-						<tbody >
-							
-							<tr ng-repeat="team in favs.fav_teams | filter : search | orderBy:sortType:sortReverse">
+						<tbody>							
+							<tr ng-repeat="team in favs.fav_teams | filter : search | orderBy:sortType:sortReverse" ng-animate="'animate'">
 								<td data-label="Position in league">{{team.position || team.rank}}</td>
 								<td>
 									<a href="javascript:void(0)" ng-click="favs.open(team)"><img src="{{team.crestURI}}" alt="{{team.teamName}}_flag" width="30"> {{team.teamName || team.team}}</a>

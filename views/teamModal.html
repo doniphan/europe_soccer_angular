@@ -1,143 +1,166 @@
+<!-- Title and favorite buttons -->
 <div class="modal-header" >
-        <img src="{{team.crestURI}}" alt="{{team.teamName}}_flag" width="100">
-        <span class="modal-title" id="modal-title">{{team.teamName || team.team}}</span>
-        <button class="btn btn-success pull-right" id="fav_btn" type="button" ng-click="fav(team)" ng-show="!favorited">Favorite</button>
-        <button class="btn btn-default pull-right" id="unfav_btn" type="button" ng-click="unfav(team)" ng-show="favorited">UnFavorite</button>
-    </div>
-    <div class="modal-body" id="modal-body">
-    	<div class="row">
-    		<div class="col-md-1 col-md-offset-3" ng-show="{{team.position}}">
-    			<div class="cell-default" >
-    				<div class="cell-head">
-    					<span class="cell-title">Position</span>
-    				</div>
-    				<div class="cell-body">
-    					<span class="cell-detail">{{team.position}}</span>
-    				</div>
-    			</div>
-    		</div>
-    		<div class="col-md-1" ng-show="{{team.wins}}">
-    			<div class="cell-default">
-    				<div class="cell-head">
-    					<span class="cell-title">Wins</span>
-    				</div>
-    				<div class="cell-body">
-    					<span class="cell-detail">{{team.wins}}</span>
-    				</div>
-    			</div>
-    		</div>
-    		<div class="col-md-1" ng-show="{{team.losses}}">
-    			<div class="cell-default">
-    				<div class="cell-head">
-    					<span class="cell-title">Losses</span>
-    				</div>
-    				<div class="cell-body">
-    					<span class="cell-detail">{{team.losses}}</span>
-    				</div>
-    			</div>
-    		</div>
-    		<div class="col-md-1" ng-show="{{team.draws}}">
-    			<div class="cell-default">
-    				<div class="cell-head">
-    					<span class="cell-title">Draws</span>
-    				</div>
-    				<div class="cell-body">
-    					<span class="cell-detail">{{team.draws}}</span>
-    				</div>
-    			</div>
-    		</div>
-    		<div class="col-md-2" ng-show="{{team.goalDifference}}">
-    			<div class="cell-warning">
-    				<div class="cell-head">
-    					<span class="cell-title">Goal Difference: {{team.goalDifference}}</span>
-    				</div>
-    				<div class="cell-body">
-    					<div class="cell-block-i">
-    						<span class="">F: {{team.goals}}</span>
-    					</div>    					
-    					<div class="cell-block">
-    						<span class="">A: {{team.goalsAgainst}}</span>
-    					</div> 
-    				</div>
-    			</div>
-    		</div>
-    		</div>
-<br><br>
-    		<div class="row">
-    		<!-- Processing div -->
-
-				<div class="col-lg-12 " ng-show="processing == true">
-					<div class='uil-ripple-css processing_div' style='transform:scale(0.6);'><div></div><div></div></div>
-				</div>
-
-			<!-- End Processing div -->
-	    		<div class="col-md-4 col-md-offset-2" ng-show="{{team.home}}">
-	    			<div class="cell-success">
-	    				<div class="cell-head">
-	    					<span class="cell-title">Home</span>
-	    				</div>
-	    				<div class="cell-body">
-	    					<div class="cell-block-i">
-	    						<span class="">W: {{team.home.wins}}</span>
-	    					</div>    					
-	    					<div class="cell-block-i">
-	    						<span class="">L: {{team.home.losses}}</span>
-	    					</div> 
-	    					<div class="cell-block-i">
-	    						<span class="">D: {{team.home.draws}}</span>
-	    					</div>
-	    					<div class="cell-block-i">
-	    						<span class="">GF: {{team.home.goals}}</span>
-	    					</div>
-	    					<div class="cell-block">
-	    						<span class="">GA: {{team.home.goalsAgainst}}</span>
-	    					</div>
-	    				</div>
-	    			</div>
-	    		</div>
-	    		<div class="col-md-4 " ng-show="{{team.away}}">
-	    			<div class="cell-danger">
-	    				<div class="cell-head">
-	    					<span class="cell-title">Away</span>
-	    				</div>
-	    				<div class="cell-body">
-	    					<div class="cell-block-i">
-	    						<span class="">W: {{team.away.wins}}</span>
-	    					</div>    					
-	    					<div class="cell-block-i">
-	    						<span class="">L: {{team.away.losses}}</span>
-	    					</div> 
-	    					<div class="cell-block-i">
-	    						<span class="">D: {{team.away.draws}}</span>
-	    					</div>
-	    					<div class="cell-block-i">
-	    						<span class="">GF: {{team.away.goals}}</span>
-	    					</div>
-	    					<div class="cell-block">
-	    						<span class="">GA: {{team.away.goalsAgainst}}</span>
-	    					</div>
-	    				</div>
-	    			</div>
-	    		</div>
-    		</div>
-<br><br>
-<div class="row" ng-show="!players">
-	<h3 class="sub-title">There are no Players at this time in the database</h3>
+	<img src="{{team.crestURI}}" alt="{{team.teamName}}_flag" width="100">
+	<span class="modal-title" id="modal-title">{{team.teamName || team.team}}</span>
+	<button class="btn btn-success pull-right" id="fav_btn" type="button" ng-click="fav(team)" ng-show="!favorited">Favorite</button>
+	<button class="btn btn-default pull-right" id="unfav_btn" type="button" ng-click="unfav(team)" ng-show="favorited">UnFavorite</button>
 </div>
-<div class="row" ng-show="players">
-<h3 class="sub-title">Players</h3>
-<table class="table table-hover tabla-responsiva">
+
+<!-- Modal body -->
+<div class="modal-body" id="modal-body">
+
+<!-- General team details -->
+	<div class="row">
+		<div class="col-md-1 col-md-offset-3" ng-show="{{team.position}}">
+			<div class="cell-default" >
+				<div class="cell-head">
+					<span class="cell-title">Position</span>
+				</div>
+				<div class="cell-body">
+					<span class="cell-detail">{{team.position}}</span>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-1" ng-show="{{team.wins}}">
+			<div class="cell-default">
+				<div class="cell-head">
+					<span class="cell-title">Wins</span>
+				</div>
+				<div class="cell-body">
+					<span class="cell-detail">{{team.wins}}</span>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-1" ng-show="{{team.losses}}">
+			<div class="cell-default">
+				<div class="cell-head">
+					<span class="cell-title">Losses</span>
+				</div>
+				<div class="cell-body">
+					<span class="cell-detail">{{team.losses}}</span>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-1" ng-show="{{team.draws}}">
+			<div class="cell-default">
+				<div class="cell-head">
+					<span class="cell-title">Draws</span>
+				</div>
+				<div class="cell-body">
+					<span class="cell-detail">{{team.draws}}</span>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-2" ng-show="{{team.goalDifference}}">
+			<div class="cell-warning">
+				<div class="cell-head">
+					<span class="cell-title">Goal Difference: {{team.goalDifference}}</span>
+				</div>
+				<div class="cell-body">
+					<div class="cell-block-i">
+						<span class="">F: {{team.goals}}</span>
+					</div>    					
+					<div class="cell-block">
+						<span class="">A: {{team.goalsAgainst}}</span>
+					</div> 
+				</div>
+			</div>
+		</div>
+	</div>
+	<br><br>
+
+<!-- Home and away team details -->
+	<div class="row">
+
+		<!-- Processing div -->
+		<div class="col-lg-12 " ng-show="processing == true">
+			<div class='uil-ripple-css processing_div' style='transform:scale(0.6);'><div></div><div></div></div>
+		</div>
+		<!-- End Processing div -->
+
+		<div class="col-md-4 col-md-offset-2" ng-show="{{team.home}}">
+			<div class="cell-success">
+				<div class="cell-head">
+					<span class="cell-title">Home</span>
+				</div>
+				<div class="cell-body">
+					<div class="cell-block-i">
+						<span class="">W: {{team.home.wins}}</span>
+					</div>    					
+					<div class="cell-block-i">
+						<span class="">L: {{team.home.losses}}</span>
+					</div> 
+					<div class="cell-block-i">
+						<span class="">D: {{team.home.draws}}</span>
+					</div>
+					<div class="cell-block-i">
+						<span class="">GF: {{team.home.goals}}</span>
+					</div>
+					<div class="cell-block">
+						<span class="">GA: {{team.home.goalsAgainst}}</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-4 " ng-show="{{team.away}}">
+			<div class="cell-danger">
+				<div class="cell-head">
+					<span class="cell-title">Away</span>
+				</div>
+				<div class="cell-body">
+					<div class="cell-block-i">
+						<span class="">W: {{team.away.wins}}</span>
+					</div>    					
+					<div class="cell-block-i">
+						<span class="">L: {{team.away.losses}}</span>
+					</div> 
+					<div class="cell-block-i">
+						<span class="">D: {{team.away.draws}}</span>
+					</div>
+					<div class="cell-block-i">
+						<span class="">GF: {{team.away.goals}}</span>
+					</div>
+					<div class="cell-block">
+						<span class="">GA: {{team.away.goalsAgainst}}</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<br><br>
+
+	<!-- If the team has no players -->
+	<div class="row" ng-show="!players">
+		<h3 class="sub-title">There are no Players at this time in the database</h3>
+	</div>
+
+	<!-- Table with team players -->
+	<div class="row" ng-show="players">
+		<div class="col-md-8">
+			<h3 class="sub-title">Players</h3>
+		</div>
+
+		<div class="col-md-4 ">
+			<div class="input-group">
+				<input type="text" name="q" ng-model="search" class="form-control" placeholder="Search...">
+				<span class="input-group-btn">
+					<button type="submit" name="search" id="search-btn" class="btn btn-flat" ng-click="clear_search()"><i class="fa fa-times"></i>
+					</button>
+				</span>
+			</div>
+		</div>
+		<table class="table table-hover tabla-responsiva">
 			<thead>			
-			<tr>
-				<th><a ng-click="sortType = 'name'; sortReverse = !sortReverse">Name</a></th>
-				<th><a ng-click="sortType = 'position'; sortReverse = !sortReverse">Position</a></th>
-				
-				<th><a ng-click="sortType = 'player_age'; sortReverse = !sortReverse">Age</a></th>
-				<th><a ng-click="sortType = 'nationality'; sortReverse = !sortReverse">Nationality</a></th>
-				<th><a ng-click="sortType = 'jerseyNumber'; sortReverse = !sortReverse">Jersey #</a></th>
-				<th><a ng-click="sortType = 'contractUntil'; sortReverse = !sortReverse">Contract until</a></th>
-				<th><a ng-click="sortType = 'marketValue'; sortReverse = !sortReverse">Market Value</a></th>
-			</tr>
+				<tr>
+					<th><a ng-click="sortType = 'name'; sortReverse = !sortReverse">Name</a></th>
+					<th><a ng-click="sortType = 'position'; sortReverse = !sortReverse">Position</a></th>
+
+					<th><a ng-click="sortType = 'player_age'; sortReverse = !sortReverse">Age</a></th>
+					<th><a ng-click="sortType = 'nationality'; sortReverse = !sortReverse">Nationality</a></th>
+					<th><a ng-click="sortType = 'jerseyNumber'; sortReverse = !sortReverse">Jersey #</a></th>
+					<th><a ng-click="sortType = 'contractUntil'; sortReverse = !sortReverse">Contract until</a></th>
+					<th><a ng-click="sortType = 'marketValue'; sortReverse = !sortReverse">Market Value</a></th>
+				</tr>
 			</thead>
 			<tbody >
 				<tr ng-repeat="player in players | filter : search | orderBy:sortType:sortReverse">
@@ -151,9 +174,10 @@
 				</tr>						
 			</tbody>
 		</table>
-		</div>
-    </div>
-    <div class="modal-footer">
-    
-        <button class="btn btn-primary" type="button" ng-click="close()">Close</button>
-    </div>
+	</div>
+</div>
+
+<!-- Modal footer -->
+<div class="modal-footer">
+	<button class="btn btn-primary" type="button" ng-click="close()">Close</button>
+</div>

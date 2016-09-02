@@ -1,5 +1,4 @@
-
-
+<!-- Title and search bar -->
 <div class="row">
 	<div class="col-md-2 ">		
 		<div class="league_box_date">
@@ -7,8 +6,17 @@
 			<span class="match_day">{{league.league_detail.matchday}}</span>
 		</div>		
 	</div>
-	<div class="col-md-10">
+	<div class="col-md-6">
 		<h2 class="section_title ">{{league.league_detail.leagueCaption}} </h2>
+	</div>
+	<div class="col-md-4 ">
+		<div class="input-group">
+			<input type="text" name="q" ng-model="search" class="form-control" placeholder="Search...">
+			<span class="input-group-btn">
+				<button type="submit" name="search" id="search-btn" class="btn btn-flat" ng-click="clear_search()"><i class="fa fa-times"></i>
+				</button>
+			</span>
+		</div>
 	</div>
 </div>
 <br><br>
@@ -21,6 +29,7 @@
 
 <!-- End Processing div -->
 
+<!-- Table for league with groups -->
 <div class="row" ng-if="league.groups">
 	<div class="col-md-6"  ng-repeat="group in league.groups">
 		<div class="box box-success" >
@@ -28,18 +37,18 @@
 				<div class="box-body">
 					<table class="table table-hover tabla-responsiva">
 						<thead>
-							<th>Pos.</th>
-							<th>Team</th>
-							<th>Points</th>
-							<th>P</th>
-							<th>GF</th>
-							<th>GA</th>
-							<th>GD</th>
+							<th><a ng-click="sortType = 'position'; sortReverse = !sortReverse">Pos.</a></th>
+							<th><a ng-click="sortType = 'teamName'; sortReverse = !sortReverse">Team</a></th>
+							<th><a ng-click="sortType = 'points'; sortReverse = !sortReverse">Points</a></th>
+							<th><a ng-click="sortType = 'playedGames'; sortReverse = !sortReverse">P</a></th>
+							<th><a ng-click="sortType = 'goals'; sortReverse = !sortReverse">GF</a></th>
+							<th><a ng-click="sortType = 'goalsAgainst'; sortReverse = !sortReverse">GA</a></th>
+							<th><a ng-click="sortType = 'goalDifference'; sortReverse = !sortReverse">GD</a></th>
 							<th>Group</th>
 							<th></th>
 						</thead>
 						<tbody >
-							<tr ng-repeat="team in group">
+							<tr ng-repeat="team in group | filter : search | orderBy:sortType:sortReverse" ng-animate="'animate'">
 								<td>{{team.rank}}</td>
 								<td>
 									<a href="javascript:void(0)" ng-click="league.open(team, league.league_detail.league_id)">
@@ -59,19 +68,25 @@
 				</div>
 			</div>	
 		</div>
+		<!-- End box -->
 	</div>
+	<!-- End col -->
 </div>
+<!-- End row -->
+
+<!-- If there are no details -->
 <div class="row" ng-show="!league.teams && !league.groups">
 	<h3 class="sub-title2">Ever seen a league table for that competition?</h3>
 </div>
+
+<!-- Table for league without groups -->
 <div class="row" ng-if="league.teams">
-	<div class="col-md-12"  >
+	<div class="col-md-12" >
 		<div class="box box-success" >
 			<div class="box-content">
 				<div class="box-body">
 					<table class="table table-hover tabla-responsiva">
 						<thead>
-
 						<tr>
 							<th><a ng-click="sortType = 'position'; sortReverse = !sortReverse">Pos.</a></th>
 							<th><a ng-click="sortType = 'teamName'; sortReverse = !sortReverse">Team</a></th>
@@ -86,9 +101,8 @@
 							<th></th>
 						</tr>
 						</thead>
-						<tbody >
-							
-							<tr ng-repeat="team in league.teams | filter : search | orderBy:sortType:sortReverse">
+						<tbody >							
+							<tr ng-repeat="team in league.teams | filter : search | orderBy:sortType:sortReverse" ng-animate="'animate'" >
 								<td data-label="Position">{{team.position}}</td>
 								<td >
 									<a href="javascript:void(0)" ng-click="league.open(team, league.league_detail.league_id)"><img ng-src="{{team.crestURI}}" alt="{{team.teamName}}_flag" width="30" check-image> 
@@ -116,7 +130,9 @@
 				</div>
 			</div>	
 		</div>
+		<!-- End box -->
 	</div>
-	 
+	 <!-- End col -->
 </div>
+<!-- End row -->
 

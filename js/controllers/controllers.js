@@ -1,18 +1,18 @@
 angular.module ("controllers", [])
 
-
+//Dashboard controller
 .controller('leaguesDashboardCtrl', function(Dashboard, $scope){
 	var vm = this;
 	vm.processing = true;
 
-// Gets all leagues from the API
-	Dashboard.leagues()
-	.then(function (data) {
-		vm.leagues = data
-		console.log(data)
-	}).finally(function () {
-		 vm.processing = false;
-	});
+	// Gets all leagues from the API
+		Dashboard.leagues()
+		.then(function (data) {
+			vm.leagues = data
+		
+		}).finally(function () {
+			 vm.processing = false;
+		});
 
 	// Clears search box
 		$scope.clear_search = function () {
@@ -20,18 +20,22 @@ angular.module ("controllers", [])
 		}
 }) 
 
+//League table controller
 .controller('leagueCtrl', function(LeagueDetail, $routeParams, Checks, $scope, ngDialog, $log, $controller, $q){
 	var vm = this;
 	vm.processing = true;
 	var id = $routeParams.id;
 
-	
+	// Clears search box
+	$scope.clear_search = function () {
+		 $scope.search = "" 
+	}
 
-//Gets league detail from the API
+	//Gets league detail from the API
 	LeagueDetail.league_detail(id)
 	.then(function (data) {
 		vm.league_detail = data;
-console.log(data)
+
 
 	//There's a league that has groups, so this detect if a league has groups or don't.
 		if (vm.league_detail.standings) {
@@ -41,65 +45,22 @@ console.log(data)
 		} else
 		if (vm.league_detail.standing) {
 			vm.teams = vm.league_detail.standing;
-			console.log(vm.teams)
-
+			
 			//Assigns an id in the scope to every league 
 				var league_link = vm.league_detail._links.competition.href;
 				vm.league_detail.league_id = league_link.substr(league_link.lastIndexOf('/') + 1);
-			
-			
-			// var check_badge = function (condition, i) {
-			// 	// console.log(condition, i)
-			// 	 if (condition === false) {	            	
-			// 	 	 vm.teams[i].crestURI = "img/genericBadge.png"
-			// 	} 
-			// }
-
-			// var isImage = function(src) {
-		 //            var deferred = $q.defer();
-
-			// 	    var image = new Image();
-			// 	    image.onerror = function() {
-			// 	        deferred.resolve(false);
-			// 	    };
-			// 	    image.onload = function() {
-			// 	        deferred.resolve(true);
-			// 	    };
-			// 	    image.src = src;
-
-			// 	    return deferred.promise;
-		 //        }
+					
 
 		//Assigns a team ID inside the scope. 	
 			for (var i = 0; i < vm.teams.length; i++) {
 				var team_link = vm.teams[i]._links.team.href;
-				vm.teams[i].teamId = team_link.substr(team_link.lastIndexOf('/') + 1);					
-			
-			//Check if a team has logo. If don´t, assigns a default badge.
-				   // vm.teams[i].badge_condition = checkImage(vm.teams[i].crestURI);	
-
-				 //   if (condition === false) {	            	
-					//  	 vm.teams[i].crestURI = "img/genericBadge.png"
-					// } 	
-						
+				vm.teams[i].teamId = team_link.substr(team_link.lastIndexOf('/') + 1);						
 			};
 
-			// function success() {
-			//     console.log("success: ", this.src);
-			//   }
-
-			//  function failure(i) {
-			//  	console.log(i)
-			//  		vm.teams[i].crestURI = "img/genericBadge.png"						
-			//  	}
 			
 
-
-
-			
-
-//Favorites utils
-	//Puts the team into localStorage as favorite
+	//Favorites utils
+		//Puts the team into localStorage as favorite
 		$scope.fav = function (team_fav) {
 			var ls_name = team_fav.teamId;
 			team_fav.league_id = vm.league_detail.league_id;
@@ -109,7 +70,7 @@ console.log(data)
 		   
 
 		}; 
-	//Removes the team from the localStorage as favorite		
+		//Removes the team from the localStorage as favorite		
 		$scope.unfav = function (team_unfav) {
 			var ls_name = team_unfav.teamId;
 			window.localStorage.removeItem(ls_name);
@@ -130,16 +91,11 @@ console.log(data)
 						} 
 					};
 				};
-
-
 			};
 
-			// first check of favs
+		// first check of favs
 		$scope.check_fav();
 		};
-
-
-
 
 
 //Opens team modal and put data into a controller
@@ -152,12 +108,13 @@ console.log(data)
 	        	closeByNavigation: true,
 	        	width: '80%',
 	        	controller: ['$scope', 'Checks', function($scope, Checks) {
-				       //Shows proccessing animation
+			       //Shows proccessing animation
 				       $scope.processing = true
 
 				       $scope.team = team;
 				       $scope.team.league_id = league_id;
 
+			       //Gets the link of the team depending of wich object has it
 				       if (team._links){
 				       	var team_link = team._links.team.href;
 				       }else{
@@ -205,7 +162,6 @@ console.log(data)
 
 					//Puts the team into localStorage as favorite
 						$scope.fav = function (team_fav) {
-
 							var ls_name = team_fav.teamId;
 							team_fav.league_id = league_id;
 						    window.localStorage.setItem(ls_name, JSON.stringify(team_fav));
@@ -215,42 +171,41 @@ console.log(data)
 
 						}; 
 					//Removes the team from the localStorage as favorite		
-						$scope.unfav = function (team_unfav) {
-							
-								var ls_name = team_unfav.teamId;
-							
-							
+						$scope.unfav = function (team_unfav) {							
+							var ls_name = team_unfav.teamId;							
 							window.localStorage.removeItem(ls_name);
 							$scope.favorited = check_fav();
 						};
 
 					//Checks if team is already in the localStorage as favorite	
-						var check_fav = function () {
-							
+						var check_fav = function () {							
 							var keys = Object.keys(localStorage);		         					
 								for (var i = 0; i < keys.length; i++) {
 									if ($scope.team.teamId == keys[i]) {										
 										return true										
 									}; 
-								};
-							
+								};							
 						};
 
 						$scope.favorited = check_fav();			
 
+						// Clears search box
+							$scope.clear_search = function () {
+								 $scope.search = "" 
+							}
 				    }]	    
 	        });
 	    };
-// End open team modal		    
+		// End open team modal		    
 		 
 		}).finally(function () {
 				vm.processing = false;
 			});
-//// End Gets league detail from the API
+		//// End Gets league detail from the API
 
- // Sorts league table
-    $scope.sortType = 'position'; // set the default sort type
-    $scope.sortReverse = false; // set the default sort order 
+	 // Sorts league table
+	    $scope.sortType = 'position'; // set the default sort type
+	    $scope.sortReverse = false; // set the default sort order 
 
 }) 
 
@@ -278,44 +233,41 @@ console.log(data)
        //The fixtures object has no Team Name. So this gets the Team Name
        		LeagueDetail.team(id)
        		.then(function (response) {
-       			 vm.team_name = response.name
-       			 
+       			 vm.team_name = response.name;       			 
        		});
 
    		// Clears search box
    			$scope.clear_search = function () {
    				 $scope.search = "" 
-   			}
- 	  
-       		
- 	
+   			};	
 })
+
 
 //Favorites page controller
 .controller('favoritesCtrl', function(LeagueDetail, Dashboard, $routeParams, Checks, $scope, ngDialog, $log, $controller){
 	var vm = this;
 	vm.processing = true;
 
-	vm.fav_teams = Checks.getFavs()
-	
+	//Gets the fav teams from the local storage
+	vm.fav_teams = Checks.getFavs();	
 	vm.processing = false;
 
+	// Clears search box
+	$scope.clear_search = function () {
+		 $scope.search = "" 
+	};
 
 	//Removes the team from the localStorage as favorite		
 		$scope.unfav = function (team_unfav) {
 			var ls_name = team_unfav.teamId;
 			window.localStorage.removeItem(ls_name);
-
-			vm.fav_teams = Checks.getFavs()
-
+			vm.fav_teams = Checks.getFavs();
 		};
 
-	// Get the league of the team by searching in all the leagues	
 	// Gets all leagues from the API
 		Dashboard.leagues()
 		.then(function (data) {
-			vm.leagues = data;
-			console.log(data)
+			vm.leagues = data;			
 
 		}).finally(function () {
 			 vm.processing = false;
@@ -329,9 +281,6 @@ console.log(data)
 		        	className: 'ngdialog-theme-default',
 		        	closeByEscape: true,
 		        	closeByNavigation: true,
-		        	preCloseCallback: { function() {
-				        vm.fav_teams = Checks.getFavs()
-				    }},
 		        	width: '80%',
 		        	controller: ['$scope', 'Checks','$rootScope', function($scope, Checks, $rootScope) {
 					       //Shows proccessing animation
@@ -340,6 +289,7 @@ console.log(data)
 					       $scope.team = team;
 					       $scope.team.league_id = league_id;
 
+					    //Gets the link of the team depending of wich object has it
 					       if (team._links){
 					       	var team_link = team._links.team.href;
 					       }else{
@@ -405,25 +355,19 @@ console.log(data)
 							};
 
 						//Checks if team is already in the localStorage as favorite	
-							var check_fav = function () {
-								
+							var check_fav = function () {								
 								var keys = Object.keys(localStorage);		         					
 									for (var i = 0; i < keys.length; i++) {
 										if ($scope.team.teamId == keys[i]) {										
 											return true										
 										}; 
-									};
-								
+									};								
 							};
-
 							$scope.favorited = check_fav();	
-
 					    }]	    
 		        });
 		    };
-	// End open team modal			
-
-	
+	// End open team modal		
 })
 
 
